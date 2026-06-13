@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Jurnal - Back Office Daily Task Manager & Dashboard',
+  title: 'BIW - Back Office Tracking System',
   description: 'Premium real-time task manager and schedule planner for back office coordination and owner inspection.',
 };
 

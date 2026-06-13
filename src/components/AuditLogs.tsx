@@ -44,7 +44,7 @@ export const AuditLogs: React.FC<AuditLogsProps> = ({ logs }) => {
     link.setAttribute('href', encodedUri);
     link.setAttribute(
       'download',
-      `jurnal_audit_report_${new Date().toISOString().split('T')[0]}.csv`
+      `biw_audit_report_${new Date().toISOString().split('T')[0]}.csv`
     );
     document.body.appendChild(link);
     link.click();
@@ -54,7 +54,7 @@ export const AuditLogs: React.FC<AuditLogsProps> = ({ logs }) => {
   const exportToMarkdown = () => {
     if (filteredLogs.length === 0) return;
 
-    let markdown = `# Jurnal Audit Log Report\n`;
+    let markdown = `# BIW Audit Log Report\n`;
     markdown += `Generated on: ${new Date().toLocaleString()}\n\n`;
     markdown += `| Timestamp | Operator | Action | Details |\n`;
     markdown += `|---|---|---|---|\n`;
@@ -69,7 +69,7 @@ export const AuditLogs: React.FC<AuditLogsProps> = ({ logs }) => {
     link.href = url;
     link.setAttribute(
       'download',
-      `jurnal_audit_report_${new Date().toISOString().split('T')[0]}.md`
+      `biw_audit_report_${new Date().toISOString().split('T')[0]}.md`
     );
     document.body.appendChild(link);
     link.click();

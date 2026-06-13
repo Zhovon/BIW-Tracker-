@@ -1062,3 +1062,148 @@ dialog.custom-modal::backdrop {
 .text-gold {
   color: var(--color-gold);
 }
+
+/* ==========================================================================
+   Mobile Responsive Enhancements (iOS / Android)
+   ========================================================================== */
+
+.mobile-menu-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-primary);
+  padding: 8px;
+  border-radius: 8px;
+  margin-right: 8px;
+  flex-shrink: 0;
+  transition: var(--transition-fast);
+}
+
+.mobile-menu-btn:hover {
+  background-color: var(--bg-hover);
+  color: var(--color-gold);
+}
+
+.mobile-close-sidebar-btn {
+  display: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 2rem;
+  cursor: pointer;
+  line-height: 1;
+  width: 36px;
+  height: 36px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: var(--transition-fast);
+}
+
+.mobile-close-sidebar-btn:hover {
+  color: var(--color-gold);
+  background-color: var(--bg-hover);
+}
+
+.mobile-sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 90;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-close-sidebar-btn {
+    display: flex;
+  }
+
+  .app-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    transform: translateX(-280px);
+    transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+    z-index: 100;
+  }
+
+  .app-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .app-container {
+    flex-direction: column;
+  }
+
+  .app-content {
+    width: 100vw;
+  }
+
+  .content-header {
+    padding: 16px 20px;
+    justify-content: flex-start;
+    gap: 12px;
+  }
+
+  .header-status {
+    margin-left: auto;
+  }
+
+  .panel-container {
+    padding: 20px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .form-group.full-width {
+    grid-column: span 1;
+  }
+
+  .header-status {
+    display: none; /* Hide status badges on very small mobile screens to save space */
+  }
+
+  .header-title-box h1 {
+    font-size: 1.35rem;
+  }
+
+  .btn-primary, .btn-secondary, .btn-danger {
+    padding: 8px 14px;
+    font-size: 0.85rem;
+  }
+  
+  .logs-filters {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  
+  .logs-filters > * {
+    width: 100% !important;
+  }
+}
+

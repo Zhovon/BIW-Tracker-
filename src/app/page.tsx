@@ -23,6 +23,7 @@ export default function Home() {
   const [theme, setTheme] = useState<'dark-gold' | 'warm-light'>('dark-gold');
   const [isSandbox, setIsSandbox] = useState<boolean>(true);
   const [isConnected, setIsConnected] = useState<boolean>(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
 
   // Synchronize document theme attribute
   useEffect(() => {
@@ -344,25 +345,34 @@ export default function Home() {
   const getPageTitle = () => {
     switch (activeTab) {
       case 'dashboard':
-        return 'Back Office Overview';
+        return 'BIW Back Office Overview';
       case 'tasks':
         return 'Task Board (Kanban)';
       case 'schedule':
-        return 'Daily Schedule timeline';
+        return 'Daily Schedule Timeline';
       case 'logs':
-        return 'Audit Logs & Timeline';
+        return 'Owner Audit Logs & Timeline';
       default:
-        return 'Back Office Dashboard';
+        return 'BIW Back Office Tracking System';
     }
   };
 
   return (
     <div className="app-container">
+      {/* Mobile overlay */}
+      {isMobileMenuOpen && (
+        <div className="mobile-sidebar-overlay" onClick={() => setIsMobileMenuOpen(false)} />
+      )}
+
       {/* Sidebar navigation */}
-      <aside className="app-sidebar">
+      <aside className={`app-sidebar ${isMobileMenuOpen ? 'open' : ''}`}>
+        <button className="mobile-close-sidebar-btn" onClick={() => setIsMobileMenuOpen(false)}>
+          &times;
+        </button>
+
         <div className="brand-section">
-          <div className="brand-icon">J</div>
-          <span className="brand-name">Jurnal</span>
+          <div className="brand-icon">B</div>
+          <span className="brand-name">BIW</span>
         </div>
 
         <nav>
@@ -370,7 +380,10 @@ export default function Home() {
             <li>
               <button
                 className={`nav-btn ${activeTab === 'dashboard' ? 'active' : ''}`}
-                onClick={() => setActiveTab('dashboard')}
+                onClick={() => {
+                  setActiveTab('dashboard');
+                  setIsMobileMenuOpen(false);
+                }}
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '8px' }}>
                   <rect x="3" y="3" width="7" height="9" />
@@ -384,7 +397,10 @@ export default function Home() {
             <li>
               <button
                 className={`nav-btn ${activeTab === 'tasks' ? 'active' : ''}`}
-                onClick={() => setActiveTab('tasks')}
+                onClick={() => {
+                  setActiveTab('tasks');
+                  setIsMobileMenuOpen(false);
+                }}
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '8px' }}>
                   <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
@@ -397,7 +413,10 @@ export default function Home() {
             <li>
               <button
                 className={`nav-btn ${activeTab === 'schedule' ? 'active' : ''}`}
-                onClick={() => setActiveTab('schedule')}
+                onClick={() => {
+                  setActiveTab('schedule');
+                  setIsMobileMenuOpen(false);
+                }}
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '8px' }}>
                   <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
@@ -411,7 +430,10 @@ export default function Home() {
             <li>
               <button
                 className={`nav-btn ${activeTab === 'logs' ? 'active' : ''}`}
-                onClick={() => setActiveTab('logs')}
+                onClick={() => {
+                  setActiveTab('logs');
+                  setIsMobileMenuOpen(false);
+                }}
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '8px' }}>
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -473,15 +495,23 @@ export default function Home() {
         </div>
       </aside>
 
-      {/* Main viewport */}
-      <main className="app-content">
-        <header className="content-header">
-          <div className="header-title-box">
-            <h1>{getPageTitle()}</h1>
-            <p>
-              Signed in as: <strong style={{ color: 'var(--color-gold)' }}>{currentUser}</strong>
-            </p>
-          </div>
+    {/* Main viewport */}
+    <main className="app-content">
+      <header className="content-header">
+        <button className="mobile-menu-btn" onClick={() => setIsMobileMenuOpen(true)}>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
+
+        <div className="header-title-box">
+          <h1>{getPageTitle()}</h1>
+          <p>
+            Signed in as: <strong style={{ color: 'var(--color-gold)' }}>{currentUser}</strong>
+          </p>
+        </div>
 
           <div className="header-status">
             {isSandbox && (
