@@ -370,9 +370,12 @@ export default function Home() {
           &times;
         </button>
 
-        <div className="brand-section">
-          <div className="brand-icon">B</div>
-          <span className="brand-name">BIW</span>
+        <div className="brand-section" style={{ justifyContent: 'center' }}>
+          <img
+            src="/biw-logo.jpeg"
+            alt="Beauty Intelligent Wellness"
+            style={{ width: '140px', height: '140px', objectFit: 'contain', display: 'block', margin: '0 auto' }}
+          />
         </div>
 
         <nav>

@@ -16,6 +16,8 @@ export default function RootLayout({
     <html lang="en" className="h-full">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" href="/biw-logo.jpeg" />
+        <link rel="apple-touch-icon" href="/biw-logo.jpeg" />
       </head>
       <body>{children}</body>
     </html>
