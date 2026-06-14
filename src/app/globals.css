@@ -31,47 +31,56 @@
   --bg-card: rgba(38, 35, 32, 0.6);
   --bg-hover: rgba(50, 46, 42, 0.8);
   --bg-input: #1a1816;
-  
-  --color-border: rgba(212, 175, 55, 0.15);
-  --color-border-glow: rgba(212, 175, 55, 0.4);
-  --color-gold: #d4af37;
-  --color-gold-hover: #fcd558;
-  --color-gold-dark: #b8860b;
-  --color-gold-glow: rgba(212, 175, 55, 0.35);
-  
+
+  --color-border: rgba(201, 169, 110, 0.15);
+  --color-border-glow: rgba(201, 169, 110, 0.38);
+  --color-gold: #c9a96e;
+  --color-gold-hover: #dfc08a;
+  --color-gold-dark: #a07c3e;
+  --color-gold-glow: rgba(201, 169, 110, 0.28);
+
+  /* Blush — secondary accent inspired by biw.salon skin-tone warmth */
+  --color-blush: #d4a59a;
+  --color-blush-bg: rgba(212, 165, 154, 0.10);
+  --color-blush-border: rgba(212, 165, 154, 0.30);
+
   --text-primary: #f5f2eb;
   --text-secondary: #a69e90;
   --text-muted: #736b5e;
   --text-dark-contrast: #121110;
-  
+
   --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
-  --card-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.3);
-  --gold-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
+  --card-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.28);
+  --gold-shadow: 0 0 18px rgba(201, 169, 110, 0.22);
 }
 
-/* Warm White Theme Variant */
+/* Warm Light Theme — biw.salon inspired: cream, earthy gold, blush */
 [data-theme="warm-light"] {
-  --bg-app: #faf8f5;
-  --bg-panel: rgba(253, 251, 247, 0.85);
-  --bg-card: #ffffff;
-  --bg-hover: #f7f3eb;
-  --bg-input: #fdfbf9;
-  
-  --color-border: rgba(184, 134, 11, 0.2);
-  --color-border-glow: rgba(184, 134, 11, 0.5);
-  --color-gold: #b8860b;
-  --color-gold-hover: #d4af37;
-  --color-gold-dark: #8b6508;
-  --color-gold-glow: rgba(184, 134, 11, 0.2);
-  
+  --bg-app: #f5f0e8;
+  --bg-panel: rgba(253, 250, 245, 0.92);
+  --bg-card: #fdfaf6;
+  --bg-hover: #ede8de;
+  --bg-input: #faf7f2;
+
+  --color-border: rgba(160, 124, 62, 0.18);
+  --color-border-glow: rgba(160, 124, 62, 0.42);
+  --color-gold: #a07c3e;
+  --color-gold-hover: #c9a96e;
+  --color-gold-dark: #7a5c24;
+  --color-gold-glow: rgba(160, 124, 62, 0.18);
+
+  --color-blush: #b87e74;
+  --color-blush-bg: rgba(184, 126, 116, 0.09);
+  --color-blush-border: rgba(184, 126, 116, 0.28);
+
   --text-primary: #1c1a18;
   --text-secondary: #5e574d;
   --text-muted: #8c8273;
-  --text-dark-contrast: #ffffff;
-  
-  --glass-shadow: 0 8px 32px 0 rgba(184, 134, 11, 0.08);
-  --card-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.04);
-  --gold-shadow: 0 2px 10px rgba(184, 134, 11, 0.15);
+  --text-dark-contrast: #fdfaf6;
+
+  --glass-shadow: 0 8px 32px 0 rgba(160, 124, 62, 0.07);
+  --card-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.05);
+  --gold-shadow: 0 2px 12px rgba(160, 124, 62, 0.14);
 }
 
 * {
@@ -177,11 +186,11 @@ h1, h2, h3, h4, h5, h6 {
 .nav-btn:hover {
   background-color: var(--bg-hover);
   color: var(--text-primary);
-  border-color: rgba(212, 175, 55, 0.1);
+  border-color: var(--color-border);
 }
 
 .nav-btn.active {
-  background-color: rgba(212, 175, 55, 0.08);
+  background-color: var(--color-gold-glow);
   color: var(--color-gold);
   border-color: var(--color-border-glow);
   font-weight: 600;
@@ -329,7 +338,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Page Panels */
 .panel-container {
-  padding: 32px;
+  padding: 40px 36px;
   flex: 1;
   animation: fadeIn 0.4s ease-out;
 }
@@ -345,8 +354,8 @@ h1, h2, h3, h4, h5, h6 {
 .metric-card {
   background-color: var(--bg-panel);
   border: 1px solid var(--color-border);
-  border-radius: 16px;
-  padding: 24px;
+  border-radius: 20px;
+  padding: 28px 24px;
   box-shadow: var(--card-shadow);
   transition: var(--transition-smooth);
   position: relative;
@@ -408,8 +417,8 @@ h1, h2, h3, h4, h5, h6 {
 .panel-card {
   background-color: var(--bg-panel);
   border: 1px solid var(--color-border);
-  border-radius: 16px;
-  padding: 24px;
+  border-radius: 20px;
+  padding: 28px;
   box-shadow: var(--card-shadow);
   display: flex;
   flex-direction: column;

@@ -16,6 +16,8 @@ export default function RootLayout({
     <html lang="en" className="h-full">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" href="/WhatsApp Image 2026-06-14 at 13.09.38.jpeg" />
+        <link rel="apple-touch-icon" href="/WhatsApp Image 2026-06-14 at 13.09.38.jpeg" />
       </head>
       <body>{children}</body>
     </html>
