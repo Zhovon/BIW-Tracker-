@@ -79,7 +79,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
             </button>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', alignItems: 'center', height: '100%' }}>
+          <div className="ops-breakdown-grid">
             {/* Completion rate donut chart (SVG) */}
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
               <svg width="180" height="180" viewBox="0 0 36 36">

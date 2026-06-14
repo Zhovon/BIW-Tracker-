@@ -242,11 +242,13 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
       </div>
 
       {/* Kanban Grid */}
+      <div className="kanban-wrapper">
       <div className="kanban-grid">
         {renderColumn('pending', 'To Do', '#d4af37')}
         {renderColumn('in_progress', 'In Progress', '#4682b4')}
         {renderColumn('under_review', 'Under Review', '#ba55d3')}
         {renderColumn('completed', 'Completed', '#2e8b57')}
+      </div>
       </div>
 
       {/* Modal Dialog Form */}
