@@ -33,7 +33,7 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
   const [filterCategory, setFilterCategory] = useState('all');
   const [filterPriority, setFilterPriority] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [showCompleted, setShowCompleted] = useState(false);
+  const [filterDate, setFilterDate] = useState('');
 
   const resetForm = () => {
     setTitle('');
@@ -118,14 +118,36 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
       t.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       (t.description && t.description.toLowerCase().includes(searchQuery.toLowerCase())) ||
       t.assignee.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCompleted = showCompleted || t.status !== 'completed';
-    return matchesCategory && matchesPriority && matchesSearch && matchesCompleted;
+    
+    let matchesDate = true;
+    if (filterDate && t.due_time) {
+      const taskDate = new Date(t.due_time);
+      const pad = (n: number) => n.toString().padStart(2, '0');
+      const taskDateStr = `${taskDate.getFullYear()}-${pad(taskDate.getMonth() + 1)}-${pad(taskDate.getDate())}`;
+      matchesDate = taskDateStr === filterDate;
+    } else if (filterDate && !t.due_time) {
+      matchesDate = false; // if filtering by date, tasks without date are hidden
+    }
+
+    return matchesCategory && matchesPriority && matchesSearch && matchesDate;
   });
 
   const uniqueCategories = Array.from(new Set(tasks.map((t) => t.category))).filter(Boolean);
 
   const renderColumn = (colStatus: Task['status'], name: string, dotColor: string) => {
-    const colTasks = filteredTasks.filter((t) => t.status === colStatus);
+    let colTasks = filteredTasks.filter((t) => t.status === colStatus);
+
+    // Sort tasks descending by date
+    colTasks.sort((a, b) => {
+      const d1 = new Date(a.due_time || a.created_at).getTime();
+      const d2 = new Date(b.due_time || b.created_at).getTime();
+      return d2 - d1;
+    });
+
+    // If showing completed tasks and no filter is applied, limit to most recent 10
+    if (colStatus === 'completed' && !filterDate && !searchQuery && filterCategory === 'all' && filterPriority === 'all') {
+      colTasks = colTasks.slice(0, 10);
+    }
 
     return (
       <div className="kanban-column" key={colStatus}>
@@ -230,13 +252,25 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
             <option value="high">High</option>
             <option value="urgent">Urgent</option>
           </select>
-          <button 
-            className={`btn-${showCompleted ? 'primary' : 'secondary'}`} 
-            onClick={() => setShowCompleted(!showCompleted)}
-            style={{ fontSize: '0.85rem', padding: '6px 12px' }}
-          >
-            {showCompleted ? 'Hide Completed' : 'Show Completed'}
-          </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Filter Date:</span>
+            <input
+              type="date"
+              className="custom-select"
+              style={{ width: '140px', padding: '6px' }}
+              value={filterDate}
+              onChange={(e) => setFilterDate(e.target.value)}
+            />
+            {filterDate && (
+              <button 
+                onClick={() => setFilterDate('')} 
+                style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '1rem' }}
+                title="Clear Date"
+              >
+                &times;
+              </button>
+            )}
+          </div>
         </div>
         
         {currentUser === 'Shahadat' && (

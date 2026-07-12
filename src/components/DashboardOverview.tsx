@@ -16,6 +16,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
 }) => {
   const [statusFilter, setStatusFilter] = useState<string | null>(null);
   const [assigneeFilter, setAssigneeFilter] = useState<string>('All');
+  const [logDateFilter, setLogDateFilter] = useState<string>('');
 
   // Filter tasks based on assignee filter (Owner can see all, others see their own unless they are dispatcher/Shahadat)
   const isManager = currentUser === 'Manager';
@@ -28,7 +29,13 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
   });
 
   const visibleLogs = logs.filter((l) => {
-    if (assigneeFilter !== 'All') return l.user_name === assigneeFilter;
+    if (assigneeFilter !== 'All' && l.user_name !== assigneeFilter) return false;
+    if (logDateFilter) {
+      const logDate = new Date(l.created_at);
+      const pad = (n: number) => n.toString().padStart(2, '0');
+      const logDateStr = `${logDate.getFullYear()}-${pad(logDate.getMonth() + 1)}-${pad(logDate.getDate())}`;
+      if (logDateStr !== logDateFilter) return false;
+    }
     return true;
   });
 
@@ -50,11 +57,14 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
   const categories = Object.keys(categoryCounts).sort((a, b) => categoryCounts[b] - categoryCounts[a]);
   const maxCategoryCount = Math.max(...Object.values(categoryCounts), 1);
 
-  // Compute recent logs (last 5 or all for manager)
+  // Compute recent logs
   const recentLogs = [...visibleLogs]
     .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
   
-  const displayLogs = isManager ? recentLogs : recentLogs.slice(0, 5);
+  // If manager and no date filter, show top 10. If not manager, top 5.
+  const displayLogs = isManager 
+    ? (logDateFilter ? recentLogs : recentLogs.slice(0, 10)) 
+    : recentLogs.slice(0, 5);
 
   const handleStatClick = (status: string | null) => {
     setStatusFilter(prev => prev === status ? null : status);
@@ -225,7 +235,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
 
         {/* Right Side: Owner tracker (Recent activity log) */}
         <div className="panel-card" style={{ display: 'flex', flexDirection: 'column' }}>
-          <div className="card-header-box" style={{ flexWrap: 'wrap', gap: '8px' }}>
+          <div className="card-header-box" style={{ flexWrap: 'wrap', gap: '8px', justifyContent: 'space-between' }}>
             <h3 className="card-title" style={{ whiteSpace: 'nowrap', fontSize: '1.1rem' }}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
@@ -233,11 +243,22 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
               </svg>
               {isManager ? 'Full Audit Logs' : 'Recent Tracking'}
             </h3>
-            {!isManager && (
-              <button className="btn-secondary" style={{ padding: '6px 12px', fontSize: '0.8rem' }} onClick={() => onSwitchTab('logs')}>
-                See All Logs
-              </button>
-            )}
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              {isManager && (
+                <input
+                  type="date"
+                  className="custom-select"
+                  style={{ width: '130px', padding: '4px' }}
+                  value={logDateFilter}
+                  onChange={(e) => setLogDateFilter(e.target.value)}
+                />
+              )}
+              {!isManager && (
+                <button className="btn-secondary" style={{ padding: '6px 12px', fontSize: '0.8rem' }} onClick={() => onSwitchTab('logs')}>
+                  See All Logs
+                </button>
+              )}
+            </div>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', flex: 1, overflowY: 'auto', maxHeight: '550px' }}>
