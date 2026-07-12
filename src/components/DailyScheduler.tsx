@@ -36,15 +36,23 @@ export const DailyScheduler: React.FC<DailySchedulerProps> = ({
     setSelectedDate(new Date().toISOString().split('T')[0]);
   };
 
-  // Hours array from 08:00 to 20:00 (8 AM to 8 PM)
-  const hours = Array.from({ length: 13 }, (_, i) => i + 8);
-
-  // Filter tasks that belong to the selected date and have a due time
+  // Filter tasks that belong to the selected date (using local time instead of UTC to avoid timezone shift)
   const scheduledTasks = tasks.filter((task) => {
     if (!task.due_time) return false;
-    const taskDate = new Date(task.due_time).toISOString().split('T')[0];
-    return taskDate === selectedDate;
+    const dateObj = new Date(task.due_time);
+    const pad = (n: number) => n.toString().padStart(2, '0');
+    const taskDateStr = `${dateObj.getFullYear()}-${pad(dateObj.getMonth() + 1)}-${pad(dateObj.getDate())}`;
+    return taskDateStr === selectedDate;
   });
+
+  // Hours array: default 8 to 20, plus any hours that actually have tasks today
+  const activeHours = new Set(Array.from({ length: 13 }, (_, i) => i + 8));
+  scheduledTasks.forEach(t => {
+    if (t.due_time) {
+      activeHours.add(new Date(t.due_time).getHours());
+    }
+  });
+  const hours = Array.from(activeHours).sort((a, b) => a - b);
 
   // Helper to map tasks to a specific hour block
   const getTasksForHour = (hour: number) => {
