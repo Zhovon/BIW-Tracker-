@@ -224,7 +224,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
         </div>
 
         {/* Right Side: Owner tracker (Recent activity log) */}
-        <div className="panel-card">
+        <div className="panel-card" style={{ display: 'flex', flexDirection: 'column' }}>
           <div className="card-header-box" style={{ flexWrap: 'wrap', gap: '8px' }}>
             <h3 className="card-title" style={{ whiteSpace: 'nowrap', fontSize: '1.1rem' }}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -240,7 +240,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
             )}
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', flex: 1, overflowY: 'auto', maxHeight: isManager ? '400px' : '300px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', flex: 1, overflowY: 'auto' }}>
             {displayLogs.length === 0 ? (
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flex: 1, color: 'var(--text-muted)', padding: '20px 0' }}>
                 <p style={{ fontSize: '0.9rem' }}>No recent activity.</p>
