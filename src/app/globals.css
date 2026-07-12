@@ -779,3 +779,21 @@ dialog.custom-modal::backdrop { background-color: rgba(0, 0, 0, 0.4); }
 .mobile-menu-btn {
   display: none !important;
 }
+
+.mobile-close-sidebar-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  display: block;
+}
+
+@media (min-width: 769px) {
+  .mobile-close-sidebar-btn {
+    display: none !important;
+  }
+}
