@@ -41,8 +41,13 @@ export default function Home() {
       const localLogs = localStorage.getItem('jurnal_sandbox_logs');
 
       let initialTasks: Task[];
-      if (localTasks) {
-        initialTasks = JSON.parse(localTasks);
+      let parsedLocalTasks = localTasks ? JSON.parse(localTasks) : null;
+      if (parsedLocalTasks && parsedLocalTasks.length < 15) {
+        parsedLocalTasks = null;
+      }
+
+      if (parsedLocalTasks) {
+        initialTasks = parsedLocalTasks;
         setTasks(initialTasks);
       } else {
         initialTasks = [
