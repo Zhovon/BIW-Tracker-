@@ -681,9 +681,9 @@ export default function Home() {
               value={currentUser}
               onChange={(e) => setCurrentUser(e.target.value)}
             >
-              <option value="Shahadat">Shahadat (Operator)</option>
-              <option value="Ratul">Ratul (Operator)</option>
-              <option value="Shifat">Shifat (Operator)</option>
+              <option value="Shahadat">Shahadat (Dispatcher)</option>
+              <option value="Ratul">Ratul (Executive)</option>
+              <option value="Shifat">Shifat (Intern)</option>
               <option value="Manager">Manager / Owner</option>
             </select>
           </div>
@@ -727,7 +727,7 @@ export default function Home() {
         {/* Tab panels */}
         <section className="panel-container">
           {activeTab === 'dashboard' && (
-            <DashboardOverview tasks={tasks} logs={logs} onSwitchTab={setActiveTab} />
+            <DashboardOverview tasks={tasks} logs={logs} onSwitchTab={setActiveTab} currentUser={currentUser} />
           )}
 
           {activeTab === 'tasks' && (
@@ -741,7 +741,7 @@ export default function Home() {
           )}
 
           {activeTab === 'schedule' && (
-            <DailyScheduler tasks={tasks} onAddTask={handleAddTask} onUpdateTask={handleUpdateTask} />
+            <DailyScheduler tasks={tasks} onAddTask={handleAddTask} onUpdateTask={handleUpdateTask} currentUser={currentUser} />
           )}
 
           {activeTab === 'logs' && <AuditLogs logs={logs} />}

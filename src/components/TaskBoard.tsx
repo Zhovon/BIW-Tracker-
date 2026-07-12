@@ -230,7 +230,7 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
           </select>
         </div>
         
-        {currentUser !== 'Manager' && (
+        {currentUser === 'Shahadat' && (
           <button className="btn-primary" onClick={handleOpenAdd}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <line x1="12" y1="5" x2="12" y2="19" />
@@ -296,7 +296,7 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
                     id="task-title"
                     type="text"
                     required
-                    disabled={currentUser === 'Manager'}
+                    disabled={currentUser !== 'Shahadat'}
                     className="form-input"
                     placeholder="Enter short descriptive task title"
                     value={title}
@@ -309,7 +309,7 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
                   <textarea
                     id="task-description"
                     rows={3}
-                    disabled={currentUser === 'Manager'}
+                    disabled={currentUser !== 'Shahadat'}
                     className="form-input"
                     style={{ resize: 'vertical' }}
                     placeholder="Provide detailed instructions or updates"
@@ -322,7 +322,7 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
                   <label htmlFor="task-assignee">Assignee</label>
                   <select
                     id="task-assignee"
-                    disabled={currentUser === 'Manager'}
+                    disabled={currentUser !== 'Shahadat'}
                     className="custom-select"
                     value={assignee}
                     onChange={(e) => setAssignee(e.target.value)}
@@ -338,7 +338,7 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
                   <input
                     id="task-category"
                     type="text"
-                    disabled={currentUser === 'Manager'}
+                    disabled={currentUser !== 'Shahadat'}
                     className="form-input"
                     placeholder="Operations, Logistics, Support..."
                     value={category}
@@ -365,7 +365,7 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
                   <label htmlFor="task-priority">Priority</label>
                   <select
                     id="task-priority"
-                    disabled={currentUser === 'Manager'}
+                    disabled={currentUser !== 'Shahadat'}
                     className="custom-select"
                     value={priority}
                     onChange={(e) => setPriority(e.target.value as Task['priority'])}
@@ -390,7 +390,7 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
               </div>
 
               <div className="modal-actions">
-                {editingTask && currentUser !== 'Manager' && (
+                {editingTask && currentUser === 'Shahadat' && (
                   <button
                     type="button"
                     className="btn-danger"

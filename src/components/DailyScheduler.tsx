@@ -5,12 +5,14 @@ interface DailySchedulerProps {
   tasks: Task[];
   onAddTask: (task: Omit<Task, 'id' | 'created_at' | 'updated_at'>) => Promise<void>;
   onUpdateTask: (id: string, updates: Partial<Task>) => Promise<void>;
+  currentUser: string;
 }
 
 export const DailyScheduler: React.FC<DailySchedulerProps> = ({
   tasks,
   onAddTask,
   onUpdateTask,
+  currentUser,
 }) => {
   const [selectedDate, setSelectedDate] = useState<string>(() => {
     const today = new Date();
@@ -147,19 +149,23 @@ export const DailyScheduler: React.FC<DailySchedulerProps> = ({
               <div className="hour-label">{formatHourLabel(hour)}</div>
               <div className="hour-content">
                 {hourTasks.length === 0 ? (
-                  <button
-                    className="btn-secondary"
-                    style={{
-                      padding: '4px 10px',
-                      fontSize: '0.75rem',
-                      opacity: 0.3,
-                      border: '1px dashed var(--color-border)',
-                      borderRadius: '4px',
-                    }}
-                    onClick={() => handleOpenQuickAdd(hour)}
-                  >
-                    + Schedule Task
-                  </button>
+                  currentUser === 'Shahadat' ? (
+                    <button
+                      className="btn-secondary"
+                      style={{
+                        padding: '4px 10px',
+                        fontSize: '0.75rem',
+                        opacity: 0.3,
+                        border: '1px dashed var(--color-border)',
+                        borderRadius: '4px',
+                      }}
+                      onClick={() => handleOpenQuickAdd(hour)}
+                    >
+                      + Schedule Task
+                    </button>
+                  ) : (
+                    <div className="hour-empty-slot"></div>
+                  )
                 ) : (
                   hourTasks.map((task) => (
                     <div
