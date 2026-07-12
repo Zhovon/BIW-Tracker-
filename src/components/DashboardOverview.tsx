@@ -351,6 +351,17 @@ const COLORS = ['#2e8b57', '#4682b4', '#d4af37', '#ba55d3'];
 
 const ManagerDashboard: React.FC<DashboardOverviewProps> = ({ tasks, currentUser }) => {
   const [assigneeFilter, setAssigneeFilter] = useState<string>('All');
+  const [logDateFilter, setLogDateFilter] = useState<string>('');
+
+  const visibleTasks = tasks.filter((t) => {
+    if (assigneeFilter !== 'All') return t.assignee === assigneeFilter;
+    return true;
+  });
+  
+  const totalTasks = visibleTasks.length;
+  const inProgressTasks = visibleTasks.filter((t) => t.status === 'in_progress').length;
+  const underReviewTasks = visibleTasks.filter((t) => t.status === 'under_review').length;
+  const completedTasks = visibleTasks.filter((t) => t.status === 'completed').length;
 
   const employees = ['Shahadat', 'Ratul', 'Shifat'];
   
@@ -383,21 +394,61 @@ const ManagerDashboard: React.FC<DashboardOverviewProps> = ({ tasks, currentUser
   const bigGraphData = getBigGraphData();
 
   // Audit Logs Data Table
-  const filteredTasks = tasks.filter(t => assigneeFilter === 'All' || t.assignee === assigneeFilter)
-    .sort((a, b) => {
-      const d1 = new Date(a.due_time || a.created_at).getTime();
-      const d2 = new Date(b.due_time || b.created_at).getTime();
-      return d2 - d1;
+  let filteredTasks = tasks.filter(t => assigneeFilter === 'All' || t.assignee === assigneeFilter);
+  
+  if (logDateFilter) {
+    filteredTasks = filteredTasks.filter(t => {
+      const logDate = new Date(t.due_time || t.created_at);
+      const pad = (n: number) => n.toString().padStart(2, '0');
+      const logDateStr = `${logDate.getFullYear()}-${pad(logDate.getMonth() + 1)}-${pad(logDate.getDate())}`;
+      return logDateStr === logDateFilter;
     });
+  }
+
+  // default to most recent 10 if no filters are active
+  if (!logDateFilter && assigneeFilter === 'All') {
+    filteredTasks = filteredTasks
+      .sort((a, b) => new Date(b.due_time || b.created_at).getTime() - new Date(a.due_time || a.created_at).getTime())
+      .slice(0, 10);
+  } else {
+    filteredTasks = filteredTasks.sort((a, b) => new Date(b.due_time || b.created_at).getTime() - new Date(a.due_time || a.created_at).getTime());
+  }
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       <div className="card-header-box" style={{ justifyContent: 'space-between', marginBottom: 0 }}>
-         <h2 style={{ color: 'var(--text-primary)', margin: 0 }}>Business Intelligence Overview</h2>
-         <select className="custom-select" value={assigneeFilter} onChange={(e) => setAssigneeFilter(e.target.value)}>
-            <option value="All">All Employees</option>
-            {employees.map(e => <option key={e} value={e}>{e}</option>)}
-         </select>
+         <h2 style={{ color: 'var(--text-primary)', margin: 0, fontSize: '1.25rem', fontWeight: 600 }}>System Overview</h2>
+         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Filter by Executive:</span>
+            <select className="custom-select" value={assigneeFilter} onChange={(e) => setAssigneeFilter(e.target.value)}>
+                <option value="All">All Employees</option>
+                {employees.map(e => <option key={e} value={e}>{e}</option>)}
+            </select>
+         </div>
+      </div>
+
+      {/* System Overview Metrics Grid */}
+      <div className="metrics-grid">
+        <div className="metric-card active-stat" style={{ '--accent-color': '#d4af37' } as React.CSSProperties}>
+          <div className="metric-label">Total Tasks</div>
+          <div className="metric-value">{totalTasks}</div>
+          <div className="metric-footer">Across {assigneeFilter === 'All' ? 'all staff members' : assigneeFilter}</div>
+        </div>
+        <div className="metric-card active-stat" style={{ '--accent-color': '#3a86ff' } as React.CSSProperties}>
+          <div className="metric-label">In Progress</div>
+          <div className="metric-value">{inProgressTasks}</div>
+          <div className="metric-footer">Currently active tasks</div>
+        </div>
+        <div className="metric-card active-stat" style={{ '--accent-color': '#ba55d3' } as React.CSSProperties}>
+          <div className="metric-label">Under Review</div>
+          <div className="metric-value">{underReviewTasks}</div>
+          <div className="metric-footer">Awaiting feedback</div>
+        </div>
+        <div className="metric-card active-stat" style={{ '--accent-color': '#2e8b57' } as React.CSSProperties}>
+          <div className="metric-label">Completed</div>
+          <div className="metric-value">{completedTasks}</div>
+          <div className="metric-footer">Successfully finished</div>
+        </div>
       </div>
 
       {/* Top Row: Individual Performance */}
@@ -452,7 +503,28 @@ const ManagerDashboard: React.FC<DashboardOverviewProps> = ({ tasks, currentUser
 
       {/* Bottom Row: Resolved Tasks Data Table */}
       <div className="panel-card" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-        <h3 style={{ color: 'var(--text-primary)', marginBottom: '16px' }}>Task Audit Log</h3>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+          <h3 style={{ color: 'var(--text-primary)', margin: 0 }}>Task Audit Log</h3>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Filter Date:</span>
+            <input
+              type="date"
+              className="custom-select"
+              style={{ width: '140px', padding: '6px' }}
+              value={logDateFilter}
+              onChange={(e) => setLogDateFilter(e.target.value)}
+            />
+            {logDateFilter && (
+              <button 
+                onClick={() => setLogDateFilter('')} 
+                style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '1rem' }}
+                title="Clear Date"
+              >
+                &times;
+              </button>
+            )}
+          </div>
+        </div>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
