@@ -19,7 +19,7 @@ export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [logs, setLogs] = useState<ActivityLog[]>([]);
   const [activeTab, setActiveTab] = useState<string>('dashboard');
-  const [currentUser, setCurrentUser] = useState<string>('Shahadat');
+  const [currentUser, setCurrentUser] = useState<string>('Manager');
   const [theme, setTheme] = useState<'dark-gold' | 'warm-light'>('warm-light');
   const [isSandbox, setIsSandbox] = useState<boolean>(true);
   const [isConnected, setIsConnected] = useState<boolean>(false);
