@@ -367,7 +367,7 @@ const ManagerDashboard: React.FC<DashboardOverviewProps> = ({ tasks, currentUser
 
   // Data for the Big Graph (Last 14 days of task creation/due)
   const getBigGraphData = () => {
-    const dataMap: Record<string, { date: string, Shahadat: number, Ratul: number, Shifat: number }> = {};
+    const dataMap: Record<string, { date: string, [key: string]: string | number }> = {};
     tasks.forEach(t => {
       const dateObj = t.due_time ? new Date(t.due_time) : new Date(t.created_at);
       const pad = (n: number) => n.toString().padStart(2, '0');
@@ -375,7 +375,7 @@ const ManagerDashboard: React.FC<DashboardOverviewProps> = ({ tasks, currentUser
       
       if (!dataMap[dateStr]) dataMap[dateStr] = { date: dateStr, Shahadat: 0, Ratul: 0, Shifat: 0 };
       if (t.status === 'completed' && ['Shahadat', 'Ratul', 'Shifat'].includes(t.assignee)) {
-        dataMap[dateStr][t.assignee]++;
+        (dataMap[dateStr][t.assignee] as number)++;
       }
     });
     return Object.values(dataMap).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()).slice(-14);
