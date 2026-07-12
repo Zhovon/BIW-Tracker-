@@ -265,27 +265,33 @@ export default function Home() {
         localStorage.setItem('jurnal_sandbox_tasks', JSON.stringify(defaultTasks));
       }
 
-      if (localLogs) {
-        setLogs(JSON.parse(localLogs));
+      let parsedLocalLogs = localLogs ? JSON.parse(localLogs) : null;
+      if (parsedLocalLogs && parsedLocalLogs.length < 15) {
+        parsedLocalLogs = null; // force reload of new default logs
+      }
+
+      if (parsedLocalLogs) {
+        setLogs(parsedLocalLogs);
       } else {
         const defaultLogs: ActivityLog[] = [
-          {
-            id: 'l1',
-            task_id: '3',
-            user_name: 'Shifat',
-            action: 'create',
-            details: 'Added task "Prepare back office coffee roster" and assigned it to Shifat',
-            created_at: new Date(Date.now() - 3600000).toISOString(),
-          },
-          {
-            id: 'l2',
-            task_id: '3',
-            user_name: 'Shifat',
-            action: 'update_status',
-            details: 'Marked "Prepare back office coffee roster" as Completed',
-            created_at: new Date(Date.now() - 1800000).toISOString(),
-          },
-        ];
+          ...defaultTasks.map((t, i) => ({
+            id: `log_c_${t.id}`,
+            task_id: t.id,
+            user_name: 'Manager',
+            action: 'create' as const,
+            details: `Added task "${t.title}" and assigned it to ${t.assignee}`,
+            created_at: new Date(Date.now() - 86400000 + i * 1000).toISOString(),
+          })),
+          ...defaultTasks.filter(t => t.status === 'completed').map((t, i) => ({
+            id: `log_u_${t.id}`,
+            task_id: t.id,
+            user_name: t.assignee,
+            action: 'update_status' as const,
+            details: `Marked "${t.title}" as Completed`,
+            created_at: new Date(Date.now() - 43200000 + i * 1000).toISOString(),
+          }))
+        ].sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+        
         setLogs(defaultLogs);
         localStorage.setItem('jurnal_sandbox_logs', JSON.stringify(defaultLogs));
       }
