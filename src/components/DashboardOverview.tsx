@@ -367,7 +367,7 @@ const ManagerDashboard: React.FC<DashboardOverviewProps> = ({ tasks, currentUser
 
   // Data for the Big Graph (Last 14 days of task creation/due)
   const getBigGraphData = () => {
-    const dataMap: Record<string, any> = {};
+    const dataMap: Record<string, { date: string, Shahadat: number, Ratul: number, Shifat: number }> = {};
     tasks.forEach(t => {
       const dateObj = t.due_time ? new Date(t.due_time) : new Date(t.created_at);
       const pad = (n: number) => n.toString().padStart(2, '0');
@@ -378,7 +378,7 @@ const ManagerDashboard: React.FC<DashboardOverviewProps> = ({ tasks, currentUser
         dataMap[dateStr][t.assignee]++;
       }
     });
-    return Object.values(dataMap).sort((a: any, b: any) => new Date(a.date).getTime() - new Date(b.date).getTime()).slice(-14);
+    return Object.values(dataMap).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()).slice(-14);
   };
   const bigGraphData = getBigGraphData();
 
@@ -408,7 +408,7 @@ const ManagerDashboard: React.FC<DashboardOverviewProps> = ({ tasks, currentUser
           const total = data.reduce((sum, item) => sum + item.value, 0);
           return (
             <div key={emp} className="panel-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <h3 style={{ color: 'var(--text-primary)', marginBottom: '8px' }}>{emp}'s Performance</h3>
+              <h3 style={{ color: 'var(--text-primary)', marginBottom: '8px' }}>{emp}&apos;s Performance</h3>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Total Tasks: {total}</p>
               {total > 0 ? (
                 <div style={{ width: '100%', height: '220px' }}>

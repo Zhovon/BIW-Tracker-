@@ -33,6 +33,7 @@ export default function Home() {
   // Initial load and subscription setup
   useEffect(() => {
     const sandbox = isSandboxMode();
+    // eslint-disable-next-line
     setIsSandbox(sandbox);
 
     if (sandbox) {
@@ -319,8 +320,8 @@ export default function Home() {
           if (logsError) throw logsError;
           setLogs(logsData || []);
           setIsConnected(true);
-        } catch (err: any) {
-          console.error('Database connection failed, falling back to local storage:', err?.message || err?.details || err);
+        } catch (err: unknown) {
+          console.error('Database connection failed, falling back to local storage:', (err as Error)?.message || err);
           setIsSandbox(true);
         }
       };
