@@ -774,3 +774,8 @@ dialog.custom-modal::backdrop { background-color: rgba(0, 0, 0, 0.4); }
   color: var(--color-gold);
   font-weight: 500;
 }
+
+/* Hide unused mobile menu button on desktop */
+.mobile-menu-btn {
+  display: none !important;
+}

@@ -33,6 +33,7 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
   const [filterCategory, setFilterCategory] = useState('all');
   const [filterPriority, setFilterPriority] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [showCompleted, setShowCompleted] = useState(false);
 
   const resetForm = () => {
     setTitle('');
@@ -117,7 +118,8 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
       t.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       (t.description && t.description.toLowerCase().includes(searchQuery.toLowerCase())) ||
       t.assignee.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesPriority && matchesSearch;
+    const matchesCompleted = showCompleted || t.status !== 'completed';
+    return matchesCategory && matchesPriority && matchesSearch && matchesCompleted;
   });
 
   const uniqueCategories = Array.from(new Set(tasks.map((t) => t.category))).filter(Boolean);
@@ -228,6 +230,13 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
             <option value="high">High</option>
             <option value="urgent">Urgent</option>
           </select>
+          <button 
+            className={`btn-${showCompleted ? 'primary' : 'secondary'}`} 
+            onClick={() => setShowCompleted(!showCompleted)}
+            style={{ fontSize: '0.85rem', padding: '6px 12px' }}
+          >
+            {showCompleted ? 'Hide Completed' : 'Show Completed'}
+          </button>
         </div>
         
         {currentUser === 'Shahadat' && (
