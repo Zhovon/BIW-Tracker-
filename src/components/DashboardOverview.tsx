@@ -1,3 +1,4 @@
+import { PieChart, Pie, Cell, Tooltip as RechartsTooltip, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend } from 'recharts';
 import React, { useState } from 'react';
 import { Task, ActivityLog } from '../types';
 
@@ -8,7 +9,7 @@ interface DashboardOverviewProps {
   currentUser: string;
 }
 
-export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
+const EmployeeDashboard: React.FC<DashboardOverviewProps> = ({
   tasks,
   logs,
   onSwitchTab,
@@ -343,4 +344,162 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
 
     </div>
   );
+};
+
+
+const COLORS = ['#2e8b57', '#4682b4', '#d4af37', '#ba55d3'];
+
+const ManagerDashboard: React.FC<DashboardOverviewProps> = ({ tasks, currentUser }) => {
+  const [assigneeFilter, setAssigneeFilter] = useState<string>('All');
+
+  const employees = ['Shahadat', 'Ratul', 'Shifat'];
+  
+  // Data for individual pie charts
+  const getEmployeeData = (name: string) => {
+    const empTasks = tasks.filter(t => t.assignee === name);
+    return [
+      { name: 'Completed', value: empTasks.filter(t => t.status === 'completed').length },
+      { name: 'In Progress', value: empTasks.filter(t => t.status === 'in_progress').length },
+      { name: 'Under Review', value: empTasks.filter(t => t.status === 'under_review').length },
+      { name: 'To Do', value: empTasks.filter(t => t.status === 'pending').length },
+    ].filter(d => d.value > 0);
+  };
+
+  // Data for the Big Graph (Last 14 days of task creation/due)
+  const getBigGraphData = () => {
+    const dataMap: Record<string, any> = {};
+    tasks.forEach(t => {
+      const dateObj = t.due_time ? new Date(t.due_time) : new Date(t.created_at);
+      const pad = (n: number) => n.toString().padStart(2, '0');
+      const dateStr = `${dateObj.getFullYear()}-${pad(dateObj.getMonth() + 1)}-${pad(dateObj.getDate())}`;
+      
+      if (!dataMap[dateStr]) dataMap[dateStr] = { date: dateStr, Shahadat: 0, Ratul: 0, Shifat: 0 };
+      if (t.status === 'completed' && ['Shahadat', 'Ratul', 'Shifat'].includes(t.assignee)) {
+        dataMap[dateStr][t.assignee]++;
+      }
+    });
+    return Object.values(dataMap).sort((a: any, b: any) => new Date(a.date).getTime() - new Date(b.date).getTime()).slice(-14);
+  };
+  const bigGraphData = getBigGraphData();
+
+  // Audit Logs Data Table
+  const filteredTasks = tasks.filter(t => assigneeFilter === 'All' || t.assignee === assigneeFilter)
+    .sort((a, b) => {
+      const d1 = new Date(a.due_time || a.created_at).getTime();
+      const d2 = new Date(b.due_time || b.created_at).getTime();
+      return d2 - d1;
+    });
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div className="card-header-box" style={{ justifyContent: 'space-between', marginBottom: 0 }}>
+         <h2 style={{ color: 'var(--text-primary)', margin: 0 }}>Business Intelligence Overview</h2>
+         <select className="custom-select" value={assigneeFilter} onChange={(e) => setAssigneeFilter(e.target.value)}>
+            <option value="All">All Employees</option>
+            {employees.map(e => <option key={e} value={e}>{e}</option>)}
+         </select>
+      </div>
+
+      {/* Top Row: Individual Performance */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
+        {employees.map(emp => {
+          if (assigneeFilter !== 'All' && assigneeFilter !== emp) return null;
+          const data = getEmployeeData(emp);
+          const total = data.reduce((sum, item) => sum + item.value, 0);
+          return (
+            <div key={emp} className="panel-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <h3 style={{ color: 'var(--text-primary)', marginBottom: '8px' }}>{emp}'s Performance</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Total Tasks: {total}</p>
+              {total > 0 ? (
+                <div style={{ width: '100%', height: '220px' }}>
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie data={data} cx="50%" cy="50%" innerRadius={60} outerRadius={80} paddingAngle={5} dataKey="value">
+                        {data.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                        ))}
+                      </Pie>
+                      <RechartsTooltip contentStyle={{ backgroundColor: 'var(--bg-surface)', border: '1px solid var(--border-light)' }} />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+              ) : (
+                <div style={{ height: '220px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <span style={{ color: 'var(--text-muted)' }}>No active tasks</span>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Middle Row: Big Graph */}
+      <div className="panel-card" style={{ height: '400px', display: 'flex', flexDirection: 'column' }}>
+         <h3 style={{ color: 'var(--text-primary)', marginBottom: '16px' }}>Team Velocity (Tasks Completed per Day)</h3>
+         <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={bigGraphData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--border-light)" />
+              <XAxis dataKey="date" stroke="var(--text-muted)" />
+              <YAxis stroke="var(--text-muted)" />
+              <RechartsTooltip contentStyle={{ backgroundColor: 'var(--bg-surface)', border: '1px solid var(--border-light)' }} />
+              <Legend />
+              <Bar dataKey="Shahadat" stackId="a" fill="#4682b4" />
+              <Bar dataKey="Ratul" stackId="a" fill="#ba55d3" />
+              <Bar dataKey="Shifat" stackId="a" fill="#d4af37" />
+            </BarChart>
+         </ResponsiveContainer>
+      </div>
+
+      {/* Bottom Row: Resolved Tasks Data Table */}
+      <div className="panel-card" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        <h3 style={{ color: 'var(--text-primary)', marginBottom: '16px' }}>Task Audit Log</h3>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+            <thead>
+              <tr style={{ borderBottom: '1px solid var(--border-light)', color: 'var(--text-muted)' }}>
+                <th style={{ padding: '12px' }}>Task Name</th>
+                <th style={{ padding: '12px' }}>Responsible</th>
+                <th style={{ padding: '12px' }}>Created By</th>
+                <th style={{ padding: '12px' }}>Status</th>
+                <th style={{ padding: '12px' }}>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredTasks.map(t => {
+                let statusColor = '#d4af37';
+                let statusText = 'To Do';
+                if (t.status === 'in_progress') { statusColor = '#4682b4'; statusText = 'In Progress'; }
+                if (t.status === 'under_review') { statusColor = '#ba55d3'; statusText = 'Under Review'; }
+                if (t.status === 'completed') { statusColor = '#2e8b57'; statusText = 'Completed'; }
+                
+                const dateObj = new Date(t.due_time || t.created_at);
+                const dateStr = dateObj.toLocaleDateString();
+
+                return (
+                  <tr key={t.id} style={{ borderBottom: '1px solid var(--bg-main)' }}>
+                    <td style={{ padding: '12px', color: 'var(--text-primary)' }}>{t.title}</td>
+                    <td style={{ padding: '12px', color: 'var(--text-primary)' }}>{t.assignee}</td>
+                    <td style={{ padding: '12px', color: 'var(--text-muted)' }}>Shahadat</td>
+                    <td style={{ padding: '12px' }}>
+                      <span style={{ backgroundColor: `${statusColor}22`, color: statusColor, padding: '4px 8px', borderRadius: '12px', fontSize: '0.8rem' }}>
+                        {statusText}
+                      </span>
+                    </td>
+                    <td style={{ padding: '12px', color: 'var(--text-muted)' }}>{dateStr}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const DashboardOverview: React.FC<DashboardOverviewProps> = (props) => {
+  if (props.currentUser === 'Manager') {
+    return <ManagerDashboard {...props} />;
+  }
+  return <EmployeeDashboard {...props} />;
 };
