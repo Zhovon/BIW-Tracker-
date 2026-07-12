@@ -20,7 +20,7 @@ export default function Home() {
   const [logs, setLogs] = useState<ActivityLog[]>([]);
   const [activeTab, setActiveTab] = useState<string>('dashboard');
   const [currentUser, setCurrentUser] = useState<string>('Shahadat');
-  const [theme, setTheme] = useState<'dark-gold' | 'warm-light'>('dark-gold');
+  const [theme, setTheme] = useState<'dark-gold' | 'warm-light'>('warm-light');
   const [isSandbox, setIsSandbox] = useState<boolean>(true);
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
@@ -46,37 +46,49 @@ export default function Home() {
         const defaultTasks: Task[] = [
           {
             id: '1',
-            title: 'Audit logistics document file folders',
-            description: 'Inspect custom clearance paperwork in the shared office cabinets.',
-            assignee: 'Shahadat',
-            status: 'in_progress',
+            title: 'Task Brief: BIW Cover Photos for Social Media',
+            description: 'Nanobanana AI + Pinterest reference. AI subscription for video promised.',
+            assignee: 'Shifat',
+            status: 'pending',
             priority: 'high',
-            category: 'Logistics',
+            category: 'Instruction / Brief',
             due_time: new Date(new Date().setHours(10, 0, 0, 0)).toISOString(),
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString(),
           },
           {
             id: '2',
-            title: 'Verify pending payroll items',
-            description: 'Double check Shahadat & Ratul timesheet submissions from yesterday.',
-            assignee: 'Ratul',
-            status: 'pending',
-            priority: 'urgent',
-            category: 'Accounting',
+            title: 'BIW v2 Facebook Cover - Gent\'s Zone',
+            description: 'Sent via Canva link for review. Bashundhara 3rd Floor.',
+            assignee: 'Shifat',
+            status: 'completed',
+            priority: 'medium',
+            category: 'Facebook Cover Design',
             due_time: new Date(new Date().setHours(14, 0, 0, 0)).toISOString(),
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString(),
           },
           {
             id: '3',
-            title: 'Prepare back office coffee roster',
-            description: 'Restock espresso pods and clean filters.',
+            title: 'Skin Barrier Carousel',
+            description: '6-Habit Carousel. Voice feedback received.',
             assignee: 'Shifat',
-            status: 'completed',
-            priority: 'low',
-            category: 'Operations',
+            status: 'in_progress',
+            priority: 'high',
+            category: 'Educational Carousel',
             due_time: new Date(new Date().setHours(9, 0, 0, 0)).toISOString(),
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          },
+          {
+            id: '4',
+            title: 'Customer Testimonial Cards - Mh Tanvir & Faiza',
+            description: 'Query raised on modifying negative/short reviews',
+            assignee: 'Shifat',
+            status: 'pending',
+            priority: 'low',
+            category: 'Testimonial / Review Post',
+            due_time: new Date(new Date().setHours(16, 0, 0, 0)).toISOString(),
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString(),
           },
