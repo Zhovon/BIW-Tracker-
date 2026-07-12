@@ -40,10 +40,12 @@ export default function Home() {
       const localTasks = localStorage.getItem('jurnal_sandbox_tasks');
       const localLogs = localStorage.getItem('jurnal_sandbox_logs');
 
+      let initialTasks: Task[];
       if (localTasks) {
-        setTasks(JSON.parse(localTasks));
+        initialTasks = JSON.parse(localTasks);
+        setTasks(initialTasks);
       } else {
-        const defaultTasks: Task[] = [
+        initialTasks = [
           {
             id: '1',
             title: 'Task Brief: BIW Cover Photos for Social Media',
@@ -261,8 +263,8 @@ export default function Home() {
             updated_at: new Date().toISOString(),
           }
         ];
-        setTasks(defaultTasks);
-        localStorage.setItem('jurnal_sandbox_tasks', JSON.stringify(defaultTasks));
+        setTasks(initialTasks);
+        localStorage.setItem('jurnal_sandbox_tasks', JSON.stringify(initialTasks));
       }
 
       let parsedLocalLogs = localLogs ? JSON.parse(localLogs) : null;
@@ -274,7 +276,7 @@ export default function Home() {
         setLogs(parsedLocalLogs);
       } else {
         const defaultLogs: ActivityLog[] = [
-          ...defaultTasks.map((t, i) => ({
+          ...initialTasks.map((t, i) => ({
             id: `log_c_${t.id}`,
             task_id: t.id,
             user_name: 'Manager',
@@ -282,7 +284,7 @@ export default function Home() {
             details: `Added task "${t.title}" and assigned it to ${t.assignee}`,
             created_at: new Date(Date.now() - 86400000 + i * 1000).toISOString(),
           })),
-          ...defaultTasks.filter(t => t.status === 'completed').map((t, i) => ({
+          ...initialTasks.filter(t => t.status === 'completed').map((t, i) => ({
             id: `log_u_${t.id}`,
             task_id: t.id,
             user_name: t.assignee,
