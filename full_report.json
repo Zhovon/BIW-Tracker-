@@ -1,0 +1,368 @@
+[
+  {
+    "id": "0f2f275c-cf5d-43fb-b33c-0128dd6b0f36",
+    "date": "2026-06-13",
+    "goal": "in this system the emploee account are added but password arent founded as its done as mock up. give...",
+    "tasks": []
+  },
+  {
+    "id": "26dbaf37-6f1f-4706-ae1c-85fec44421b2",
+    "date": "2026-07-12",
+    "goal": "have to update the interface with better ux and need to add few task from this html and do use light...",
+    "tasks": []
+  },
+  {
+    "id": "2dc7a363-8210-455e-8d01-faf2f4edc581",
+    "date": "2026-06-22",
+    "goal": "ok so we have to plan first . I wana run ai on my local machine, so do inspact th system and give me...",
+    "tasks": [
+      "- [x] Kill the currently running manual bot",
+      "- [x] Create `~/Library/LaunchAgents/com.biw.ollamabot.plist`",
+      "- [x] Load the daemon via `launchctl`",
+      "- [x] Answer the user's question about updating the `.py` file"
+    ]
+  },
+  {
+    "id": "35a14857-c769-4144-a036-37effac72732",
+    "date": "2026-07-02",
+    "goal": "can you tell me where we left ?",
+    "tasks": [
+      "- [x] Overhaul `crm-portal.tsx` (Customer Relationship Management)",
+      "- [x] Overhaul `appointments-view.tsx` (Booking & Appointments)",
+      "- [x] Overhaul `manager/page.tsx` (Manager Dashboard)",
+      "- [x] Overhaul `employee/page.tsx` (Employee Dashboard)",
+      "- [x] Overhaul `role-dashboard.tsx` (Role Selector)",
+      "- [ ] Overhaul `employees/page.tsx` (Employee Directory)",
+      "- [ ] Overhaul `branches/page.tsx` (Branch Management)",
+      "- [ ] Overhaul `services/page.tsx` (Service Catalog)",
+      "- [ ] Overhaul `login/page.tsx` (Authentication)",
+      "- [ ] Overhaul `auth-guard.tsx`",
+      "- [ ] Ensure internal dashboards are brutalist and public pages are intact (globals.css must stay)."
+    ]
+  },
+  {
+    "id": "4225b0c8-9307-4e14-85cc-dd1198a0f1bf",
+    "date": "2026-07-12",
+    "goal": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=...",
+    "tasks": [
+      "- [x] Initialize Vite React project",
+      "- [x] Implement `src/data.js`",
+      "- [x] Implement `src/App.jsx`",
+      "- [x] Implement `src/components/Header.jsx`",
+      "- [x] Implement `src/components/Ledger.jsx`",
+      "- [x] Implement `src/components/Stats.jsx`",
+      "- [x] Implement `src/components/Timeline.jsx`",
+      "- [x] Implement `src/components/Breakdown.jsx`",
+      "- [x] Implement `src/index.css`",
+      "- [x] Git init, commit, and push to remote"
+    ]
+  },
+  {
+    "id": "4c5ba094-61b6-4734-968d-a50928f0467b",
+    "date": "2026-07-12",
+    "goal": "check for last 30 days of conversation and make a report on what are done and what left",
+    "tasks": []
+  },
+  {
+    "id": "4c948e07-4ce1-403a-adfa-c8733a55eb37",
+    "date": "2026-06-16",
+    "goal": "inspact the whole system first and then I will tell you what to do .first understand the arcitacture...",
+    "tasks": [
+      "- `[x]` Update `backend/app/api/v1/attendance.py` to auto-calculate `deduction_amount` on punch.",
+      "- `[x]` Update `backend/app/api/v1/attendance.py` to auto-calculate `deduction_amount` on manual attendance log if not provided.",
+      "- `[x]` Update `backend/app/api/v1/payroll.py` to remove the 3-to-1 late penalty logic and rely solely on `deduction_amount`.",
+      "- `[x]` Update frontend `manager/page.tsx` dropdown text to reflect the new 1-to-1 penalty logic."
+    ]
+  },
+  {
+    "id": "5c9ea3ed-2510-4a0c-91d0-dc3fb07164bf",
+    "date": "2026-06-29",
+    "goal": "I wana learn about N8n and workflow from scratch",
+    "tasks": []
+  },
+  {
+    "id": "64514899-220d-40b0-b3b1-32d100a6095b",
+    "date": "2026-06-14",
+    "goal": "where are the log in and pass saved for this  in supabase as cant log in to existing account",
+    "tasks": [
+      "- [x] Optimize Sales API query latency with eager loading in backend",
+      "- [x] Fix Manager Dashboard page compilation errors",
+      "- [x] Add direct customer registration shortcuts to the treatment recorder",
+      "- [x] Add CRM Tab and components to the Owner Dashboard",
+      "- [/] Fix Services Dropdown filtering bug on Manager Dashboard",
+      "- [ ] Verify build, API profiling times, and CRM functionality"
+    ]
+  },
+  {
+    "id": "685595d8-73e0-4070-8c78-2b5cefe2ba4b",
+    "date": "2026-06-28",
+    "goal": "need to use z image turbo to run locally",
+    "tasks": [
+      "- [x] Pull `x/z-image-turbo` model in Ollama",
+      "- [x] Create `test_ollama_image.py` to verify image generation via Ollama API",
+      "- [x] Modify `ollama_telegram_bot.py` to add `/imagine` command",
+      "- [x] Improve file operations error logging in `ollama_telegram_bot.py`",
+      "- [x] Restart the Telegram bot service",
+      "- [x] Verify image generation via the Telegram bot (Canceled - reverted due to Ollama VAE bug)"
+    ]
+  },
+  {
+    "id": "7fa39828-623d-4c15-9283-e1c36e2f0abf",
+    "date": "2026-07-05",
+    "goal": "serch for skill in git for Remembaring my past conversaton desition and users I made to amke my agen...",
+    "tasks": []
+  },
+  {
+    "id": "860bd8a4-8e07-4405-a2c0-372b8ba453b7",
+    "date": "2026-06-21",
+    "goal": "pull the leatest as I worked from home and updates are pushed to git also changed some env. as we ar...",
+    "tasks": [
+      "- `[x]` Update `get_my_rooms` in `backend/app/domains/tickets/router.py` to return the Universal room for all users.",
+      "- `[x]` Update `get_tickets` in `backend/app/domains/tickets/router.py` to allow all users to query tickets located in the Universal room.",
+      "- `[x]` Update `get_ticket` in `backend/app/domains/tickets/router.py` to allow reading single tickets in the Universal room without strict assignment checks.",
+      "- `[x]` Verify changes locally using tests or inspection."
+    ]
+  },
+  {
+    "id": "8936382b-26d9-4f01-a5fe-3ccce0c4cf1d",
+    "date": "2026-06-23",
+    "goal": "yesterday we had a plan for today where is it ?",
+    "tasks": [
+      "- `[/]` **Password Management**",
+      "- `[x]` Add Change Password dialog to `layout.tsx` (Desktop & Mobile)",
+      "- `[x]` Add Forgot Password flow to `login/page.tsx`",
+      "- `[x]` Create `reset-password/page.tsx`",
+      "- `[x]` **Documentation**",
+      "- `[x]` Write `user_guide.md`",
+      "- `[ ]` **Verification**",
+      "- `[ ]` Test password change flows locally"
+    ]
+  },
+  {
+    "id": "900b3bd6-112c-487e-b0e3-ce352b3dd7a5",
+    "date": "2026-07-01",
+    "goal": "inspact hte whole system with each and every code and tell me whats done and whats left",
+    "tasks": [
+      "- [x] Install `pywebpush` in `backend/requirements.txt` and virtual environment.",
+      "- [x] Generate VAPID keys and append to `backend/.env`.",
+      "- [x] Add `PushSubscription` schema/model to `backend/app/domains/notifications/models.py`.",
+      "- [x] Generate and apply Alembic database migration for `push_subscriptions`.",
+      "- [x] Create `POST /notifications/push/subscribe` endpoint.",
+      "- [x] Create `backend/app/domains/notifications/push.py` utility for `pywebpush` sending.",
+      "- [x] Integrate background push dispatch into ticket creation/updates (`tickets/router.py`).",
+      "- [x] Create `frontend/public/manifest.json`.",
+      "- [x] Add PWA tags to `frontend/src/app/layout.tsx`.",
+      "- [x] Create `frontend/public/sw.js` (Service Worker strictly for push).",
+      "- [x] Update `frontend/src/app/dashboard/layout.tsx` to handle `navigator.serviceWorker.register`.",
+      "- [x] Implement PushManager subscription with VAPID public key.",
+      "- [x] Send push subscription data to the backend API."
+    ]
+  },
+  {
+    "id": "9227df86-5507-497a-8c65-f12e1388e28d",
+    "date": "2026-07-09",
+    "goal": "@[router.py:current_problems]",
+    "tasks": []
+  },
+  {
+    "id": "a50873f0-210a-439b-ab45-12a6f0eb60f7",
+    "date": "2026-06-13",
+    "goal": "here we will have a daily task managing and dashboard for our back office and it will be the daily t...",
+    "tasks": [
+      "- [x] Bootstrapping & Setup",
+      "- [x] Initialize Next.js project with App Router, TypeScript, and no ESLint (or standard configurations) using `create-next-app`",
+      "- [x] Install Supabase client library `@supabase/supabase-js`",
+      "- [x] Verify directory structure and remove Next.js boilerplate",
+      "- [x] Supabase Integration",
+      "- [x] Create `.env.local` template for Supabase credentials",
+      "- [x] Implement `src/utils/supabaseClient.ts` for database operations",
+      "- [x] Theme & Styling",
+      "- [x] Design and implement the global brand stylesheet (`src/app/globals.css`) using warm white, goldish, and dark styles",
+      "- [x] Core Next.js Components",
+      "- [x] Implement user switcher (for the 3 staff members and the manager) and status notifications",
+      "- [x] Implement `DashboardOverview.tsx` (real-time progress, SVG charts, recent logs)",
+      "- [x] Implement `TaskBoard.tsx` (Kanban layout, task cards, add/edit native dialog modal)",
+      "- [x] Implement `DailyScheduler.tsx` (hourly timeline view, date inspector, task-scheduler interface)",
+      "- [x] Implement `AuditLogs.tsx` (activity history, log searching and CSV/Markdown reports)",
+      "- [x] Verification & Build",
+      "- [x] Verify local compilation using `npm run build`",
+      "- [x] Create walkthrough documentation"
+    ]
+  },
+  {
+    "id": "a8f9c7bc-f273-42f7-a5f2-b3b33acb88dc",
+    "date": "2026-06-25",
+    "goal": "@[/Users/biw/Library/Containers/net.whatsapp.WhatsApp/Data/tmp/documents/15784015-7312-41A4-97DD-3EC...",
+    "tasks": [
+      "- [x] 1. `frontend/src/app/globals.css`: Add responsive utility classes (`.mobile-stack`, `.mobile-wrap`, `.mobile-scroll`, etc.)",
+      "- [x] 2. `frontend/src/app/dashboard/owner/page.tsx`: Apply responsive classes",
+      "- [x] 3. `frontend/src/app/dashboard/manager/page.tsx`: Apply responsive classes",
+      "- [x] 4. `frontend/src/app/dashboard/employee/page.tsx`: Apply responsive classes",
+      "- [x] 5. `frontend/src/components/risk-coded-dashboard.tsx`: Apply responsive classes",
+      "- [x] 6. `frontend/src/components/marketing-view.tsx`: Apply responsive classes",
+      "- [x] 7. `frontend/src/components/crm-portal.tsx`: Apply responsive classes",
+      "- [x] 8. `frontend/src/components/appointments-view.tsx`: Apply responsive classes",
+      "- [x] 9. `frontend/src/components/interactive-chart.tsx`: Apply responsive classes"
+    ]
+  },
+  {
+    "id": "ab6891e3-996a-45bf-9c7e-fb3f2205e04d",
+    "date": "2026-06-22",
+    "goal": "@[/Users/biw/Documents/Tickting System /Sheet1.html] inspact it and ask if you dont understand anyth...",
+    "tasks": []
+  },
+  {
+    "id": "b682a55b-687a-4bf0-8126-b313ae3f6bed",
+    "date": "2026-06-30",
+    "goal": "check the files and tell me whats ready for what and how can w proceed if have any mplantation plan ...",
+    "tasks": [
+      "- `[x]` Step 1: Core Infrastructure Setup",
+      "- `[x]` Create `docker-compose.yml` for n8n, PostgreSQL, and Evolution API",
+      "- `[x]` Step 2: Database & Dashboard Migration",
+      "- `[x]` Update `.env` to point to Docker PostgreSQL",
+      "- `[x]` Run Prisma migrations to initialize the database",
+      "- `[x]` Create Next.js API route to fetch conversations from Prisma",
+      "- `[x]` Update `frontend/src/app/page.tsx` to fetch real data",
+      "- `[x]` Step 3: Clean up legacy Express files",
+      "- `[x]` Delete `server.js`",
+      "- `[x]` Delete `groq_service.js`"
+    ]
+  },
+  {
+    "id": "b9d55e7c-a450-4a81-bf5c-f3059ecc4113",
+    "date": "2026-07-08",
+    "goal": "To handle a mix of physical products (which need \"Add to Cart\" and \"Buy Now\") and services (which ne...",
+    "tasks": [
+      "- `[x]` **Phase 1: Backend Database Updates**",
+      "- `[x]` Add `duration_minutes` to `Service` model in `app/models/clinic.py`.",
+      "- `[x]` Update `Appointment` model to support multiple services (e.g., `AppointmentService` junction table or JSON array).",
+      "- `[x]` Generate and apply Alembic migration for the schema changes (`migration_v7_cart_booking.sql`).",
+      "- `[x]` **Phase 2: Backend API Updates**",
+      "- `[x]` Update `POST /api/v1/appointments` to accept multiple `service_ids` and calculate total duration and price.",
+      "- `[x]` Create `GET /api/v1/availability/slots` endpoint (currently returns all standard time slots, laying ground for future capacity engine).",
+      "- `[x]` Update `POST /webhooks/shopify/products` to sync `duration_minutes` from Shopify.",
+      "- `[x]` **Phase 3: Frontend Next.js Widget Updates**",
+      "- `[x]` Update `src/app/book/page.tsx` to read `?cart=id1,id2` parameter.",
+      "- `[x]` Fetch details for all services in the cart.",
+      "- `[x]` Display \"Total Duration\" and \"Total Price\" summary in the left pane.",
+      "- `[x]` Fetch dynamic time slots from the new `/availability/slots` API.",
+      "- `[x]` Submit the booking request with the array of `service_ids`.",
+      "- `[x]` **Phase 4: Shopify Storefront Integration**",
+      "- `[x]` Rewrite `shopify-booking-snippet.html` to provide the \"Add Service\" and \"Book Appointment Now\" (redirect to cart) buttons.",
+      "- `[x]` Provide instructions/snippet for embedding the Next.js widget directly into the Shopify `cart.liquid` template."
+    ]
+  },
+  {
+    "id": "c2cd91ca-9ffd-43dc-a1d6-f875ac2e3746",
+    "date": "2026-06-18",
+    "goal": "CHeck the md file and plan properly fo r the syste and your recomendation with best suggestion",
+    "tasks": [
+      "- `[/]` **Password Management**",
+      "- `[x]` Add Change Password dialog to `layout.tsx` (Desktop & Mobile)",
+      "- `[x]` Add Forgot Password flow to `login/page.tsx`",
+      "- `[x]` Create `reset-password/page.tsx`",
+      "- `[x]` **Documentation**",
+      "- `[x]` Write `user_guide.md`",
+      "- `[ ]` **Verification**",
+      "- `[ ]` Test password change flows locally"
+    ]
+  },
+  {
+    "id": "c5c2bcc2-8314-4a69-810d-11963a1681cc",
+    "date": "2026-06-22",
+    "goal": "so we need to automate our massenger instra and whatapp text in one custom platform plan for it . li...",
+    "tasks": [
+      "- [x] Initialize Node.js project and install dependencies",
+      "- [x] Create base Express server (`server.js`) with Webhook Verification (GET)",
+      "- [x] Create Webhook Receiver (POST)",
+      "- [ ] Configure Meta Developer App and link Webhooks (User Action Required)",
+      "- [x] Set up PostgreSQL and Prisma ORM",
+      "- [x] Design database schema (`Contacts`, `Conversations`, `Messages`)",
+      "- [x] Implement message normalization logic for WhatsApp/Messenger/IG payloads",
+      "- [x] Initialize Next.js project",
+      "- [x] Set up Socket.io for real-time updates",
+      "- [x] Build UI: Master Inbox list",
+      "- [x] Build UI: Chat Interface",
+      "- [x] Build UI: Bot toggle controls",
+      "- [x] Implement Groq API integration (`groq_service.js`)",
+      "- [x] Design Intelligent Handoff prompt logic",
+      "- [x] Connect Groq service to the webhook receiver"
+    ]
+  },
+  {
+    "id": "c649ab2f-a1ff-409a-a3b2-a94def2e1eb5",
+    "date": "2026-06-15",
+    "goal": "so its already deployed on vercel and live. today our task will be to look over the payroll system a...",
+    "tasks": [
+      "- `[/]` **1. Remove Live Data & State**",
+      "- `[ ]` Delete `useEffect`, `useState`, and API fetch logic for `/overview` from `frontend/src/app/page.tsx`.",
+      "- `[ ]` Remove `InteractiveChart` and `HeroVisual` imports and components.",
+      "- `[ ]` **2. Restructure Hero & Stats**",
+      "- `[ ]` Update Hero copy to reflect the internal CRM without relying on images.",
+      "- `[ ]` Update `StatCard` section to display static system features (e.g., \"Multi-Branch\", \"Automated Payroll\") instead of live numbers.",
+      "- `[ ]` **3. Simplify Layout**",
+      "- `[ ]` Remove the Branch Performance data grids.",
+      "- `[ ]` Ensure the \"System Strategy\" section looks premium and serves as the primary content.",
+      "- `[x]` **4. Verification**",
+      "- `[x]` Verify the page compiles cleanly (`npm run build`)."
+    ]
+  },
+  {
+    "id": "d8bb4fbb-41ab-451d-ab7a-38a2e010c350",
+    "date": "2026-06-27",
+    "goal": "inspact the 25 june report and tell me where we left there are several reports . dont make mistake a...",
+    "tasks": []
+  },
+  {
+    "id": "e856c441-472f-4cff-bbd9-81f1ad0d5215",
+    "date": "2026-06-13",
+    "goal": "check the whole codebase and each and every code and give a total brief. and make a task plan for to...",
+    "tasks": [
+      "- [x] Backend Improvements (Calculations & Transactions) <!-- id: 12 -->",
+      "- [x] Update `POST /sales` inside `sales.py` to auto-log matching `revenue_entries` and calculate therapist earnings <!-- id: 13 -->",
+      "- [x] Implement payroll calculation endpoint `GET /payroll/calculate` inside `payroll.py` <!-- id: 14 -->",
+      "- [x] Implement payroll commit endpoint `POST /payroll/run` inside `payroll.py` <!-- id: 15 -->",
+      "- [x] Frontend Panels Implementation <!-- id: 16 -->",
+      "- [x] Build Branch Manager Portal in `frontend/src/app/dashboard/manager/page.tsx` (Daily treatment logger, expense logger, activity feed) <!-- id: 17 -->",
+      "- [x] Build Therapist Performance Portal in `frontend/src/app/dashboard/employee/page.tsx` (Earnings rollup, assigned treatments, personal activity logs) <!-- id: 18 -->",
+      "- [x] Upgrade Owner Finance Console in `frontend/src/app/dashboard/owner/page.tsx` (Branch operations, monthly payroll rollup console) <!-- id: 19 -->",
+      "- [x] End-to-End Verification <!-- id: 20 -->",
+      "- [x] Rebuild Docker containers and verify TypeScript compilation is warning-free <!-- id: 21 -->",
+      "- [x] Run verification scenarios (seeding, treatment entry, employee dashboard updates, owner payroll commit) <!-- id: 22 -->"
+    ]
+  },
+  {
+    "id": "edf4b961-4232-405c-9f4e-94b67c15fc4c",
+    "date": "2026-07-04",
+    "goal": "@[/Users/biw/Documents/BIW main /migration_plan.md] @[/Users/biw/Documents/BIW main /migration_task....",
+    "tasks": [
+      "- [x] #1 \u2014 Remove traceback leak from error responses (`main.py`)",
+      "- [x] #2 \u2014 Remove wildcard CORS from error handler (`main.py`)",
+      "- [x] #3 \u2014 Add HMAC verification to Shopify webhooks (`webhooks.py`, `config.py`)",
+      "- [x] #4 \u2014 Remove hardcoded passwords from seed script (`health_seed.py`)",
+      "- [x] #5 \u2014 Fix open redirect on login page (`login/page.tsx`)",
+      "- [x] #6 \u2014 Add role-based authorization (`authorization.py`, `employees.py`)",
+      "- [x] #7 \u2014 Rate limit public booking endpoint (`appointments.py`)",
+      "- [x] #8 \u2014 Remove unsafe-eval from CSP (`next.config.mjs`)",
+      "- [x] #9 \u2014 Fix frame-ancestors clickjacking (`next.config.mjs`)",
+      "- [x] #10 \u2014 Restrict image remote patterns (`next.config.mjs`)",
+      "- [x] #11 \u2014 Fix auth token cache memory leak (`auth.py`)",
+      "- [x] #13 \u2014 Replace getSession with getUser (`api.ts`)",
+      "- [x] #14 \u2014 Sanitize error messages (`branches.py`, `employees.py`)",
+      "- [x] #15 \u2014 Replace list_users iteration (`employees.py`)",
+      "- [x] #16 \u2014 Validate appointment status enum (`appointments.py`)"
+    ]
+  },
+  {
+    "id": "f24d915c-807b-4c22-951e-c697374b5341",
+    "date": "2026-06-28",
+    "goal": "need to add ylm for sync to office \ngiving you a format just change the repo names and office repo w...",
+    "tasks": []
+  },
+  {
+    "id": "f31f1d8b-f9be-4261-942a-9b0ab7b7b9a8",
+    "date": "2026-06-22",
+    "goal": "@[current_problems] cheack it out",
+    "tasks": []
+  }
+]

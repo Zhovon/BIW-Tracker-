@@ -274,15 +274,13 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
             style={{
               width: '90%',
               maxWidth: '550px',
-              border: '1px solid var(--color-gold)',
-              boxShadow: 'var(--gold-shadow), 0 8px 32px rgba(0,0,0,0.5)',
-              padding: '28px',
-              backgroundColor: 'var(--bg-panel)',
+              boxShadow: 'var(--shadow-lg)',
+              padding: '24px',
             }}
             onClick={(e) => e.stopPropagation()}
           >
             <div className="modal-header">
-              <h3 style={{ fontSize: '1.3rem', color: 'var(--color-gold)' }}>
+              <h3 style={{ fontSize: '1.25rem', color: 'var(--text-primary)', fontWeight: 600 }}>
                 {editingTask ? 'Edit Task' : 'Create New Back-Office Task'}
               </h3>
               <button className="modal-close-btn" onClick={() => setIsOpen(false)}>

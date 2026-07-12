@@ -223,15 +223,14 @@ export const DailyScheduler: React.FC<DailySchedulerProps> = ({
             style={{
               width: '90%',
               maxWidth: '450px',
-              border: '1px solid var(--color-gold)',
-              boxShadow: 'var(--gold-shadow), 0 8px 32px rgba(0,0,0,0.5)',
+              boxShadow: 'var(--shadow-lg)',
               padding: '24px',
-              backgroundColor: 'var(--bg-panel)',
+              backgroundColor: 'var(--bg-card)',
             }}
             onClick={(e) => e.stopPropagation()}
           >
             <div className="modal-header">
-              <h3 style={{ fontSize: '1.2rem', color: 'var(--color-gold)' }}>
+              <h3 style={{ fontSize: '1.2rem', color: 'var(--text-primary)', fontWeight: 600 }}>
                 Quick Schedule Task at {formatHourLabel(quickAddHour)}
               </h3>
               <button className="modal-close-btn" onClick={() => setIsQuickAddOpen(false)}>

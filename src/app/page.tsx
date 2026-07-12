@@ -563,12 +563,11 @@ export default function Home() {
           &times;
         </button>
 
-        <div className="brand-section" style={{ justifyContent: 'center' }}>
-          <img
-            src="/biw-logo.jpeg"
-            alt="Beauty Intelligent Wellness"
-            style={{ width: '140px', height: '140px', objectFit: 'contain', display: 'block', margin: '0 auto' }}
-          />
+        <div className="brand-section">
+          <div className="brand-icon">
+            <img src="/biw-logo.jpeg" alt="BIW" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '4px' }} />
+          </div>
+          <span className="brand-name">BIW Workspace</span>
         </div>
 
         <nav>
@@ -662,14 +661,14 @@ export default function Home() {
                     <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
                     <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
                   </svg>
-                  Light Gold
+                  Light Mode
                 </>
               ) : (
                 <>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
                   </svg>
-                  Dark Gold
+                  Dark Mode
                 </>
               )}
             </button>
@@ -705,7 +704,7 @@ export default function Home() {
         <div className="header-title-box">
           <h1>{getPageTitle()}</h1>
           <p>
-            Signed in as: <strong style={{ color: 'var(--color-gold)' }}>{currentUser}</strong>
+            Signed in as: <strong style={{ color: 'var(--text-primary)' }}>{currentUser}</strong>
           </p>
         </div>
 
