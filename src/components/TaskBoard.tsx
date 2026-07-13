@@ -339,7 +339,7 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
                     id="task-title"
                     type="text"
                     required
-                    disabled={currentUser !== 'Shahadat'}
+                    disabled={currentUser === 'Manager'}
                     className="form-input"
                     placeholder="Enter short descriptive task title"
                     value={title}
@@ -352,7 +352,7 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
                   <textarea
                     id="task-description"
                     rows={3}
-                    disabled={currentUser !== 'Shahadat'}
+                    disabled={currentUser === 'Manager'}
                     className="form-input"
                     style={{ resize: 'vertical' }}
                     placeholder="Provide detailed instructions or updates"
@@ -365,7 +365,7 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
                   <label htmlFor="task-assignee">Assignee</label>
                   <select
                     id="task-assignee"
-                    disabled={currentUser !== 'Shahadat'}
+                    disabled={currentUser === 'Manager'}
                     className="custom-select"
                     value={assignee}
                     onChange={(e) => setAssignee(e.target.value)}
@@ -381,7 +381,7 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
                   <input
                     id="task-category"
                     type="text"
-                    disabled={currentUser !== 'Shahadat'}
+                    disabled={currentUser === 'Manager'}
                     className="form-input"
                     placeholder="Operations, Logistics, Support..."
                     value={category}
@@ -408,7 +408,7 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
                   <label htmlFor="task-priority">Priority</label>
                   <select
                     id="task-priority"
-                    disabled={currentUser !== 'Shahadat'}
+                    disabled={currentUser === 'Manager'}
                     className="custom-select"
                     value={priority}
                     onChange={(e) => setPriority(e.target.value as Task['priority'])}
