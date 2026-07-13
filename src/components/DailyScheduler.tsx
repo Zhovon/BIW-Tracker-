@@ -157,7 +157,7 @@ export const DailyScheduler: React.FC<DailySchedulerProps> = ({
               <div className="hour-label">{formatHourLabel(hour)}</div>
               <div className="hour-content">
                 {hourTasks.length === 0 ? (
-                  currentUser === 'Shahadat' ? (
+                  currentUser !== 'Manager' ? (
                     <button
                       className="btn-secondary"
                       style={{

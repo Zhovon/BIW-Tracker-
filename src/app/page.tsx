@@ -30,6 +30,14 @@ export default function Home() {
     document.documentElement.setAttribute('data-theme', theme === 'warm-light' ? 'warm-light' : 'dark-gold');
   }, [theme]);
 
+  // Load saved user on mount
+  useEffect(() => {
+    const savedUser = localStorage.getItem('jurnal_current_user');
+    if (savedUser) {
+      setCurrentUser(savedUser);
+    }
+  }, []);
+
   // Initial load and subscription setup
   useEffect(() => {
     const sandbox = isSandboxMode();
@@ -680,7 +688,10 @@ export default function Home() {
             <select
               className="custom-select"
               value={currentUser}
-              onChange={(e) => setCurrentUser(e.target.value)}
+              onChange={(e) => {
+                setCurrentUser(e.target.value);
+                localStorage.setItem('jurnal_current_user', e.target.value);
+              }}
             >
               <option value="Shahadat">Shahadat (Dispatcher)</option>
               <option value="Ratul">Ratul (Executive)</option>
