@@ -344,7 +344,10 @@ export default function Home() {
           { event: '*', schema: 'public', table: 'tasks' },
           (payload) => {
             if (payload.eventType === 'INSERT') {
-              setTasks((current) => [...current, payload.new as Task]);
+              setTasks((current) => {
+                if (current.some(t => t.id === payload.new.id)) return current;
+                return [...current, payload.new as Task];
+              });
             } else if (payload.eventType === 'UPDATE') {
               setTasks((current) =>
                 current.map((t) => (t.id === payload.new.id ? (payload.new as Task) : t))
