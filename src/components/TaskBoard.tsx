@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { DragDropContext, Droppable, Draggable, DropResult } from '@hello-pangea/dnd';
 import { Task } from '../types';
 
 interface TaskBoardProps {
@@ -16,6 +17,11 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
   onUpdateTask,
   onDeleteTask,
 }) => {
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   // Modal visibility
   const [isOpen, setIsOpen] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
@@ -94,20 +100,13 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
     }
   };
 
-  const moveTask = async (task: Task, direction: 'left' | 'right') => {
-    const statuses: Task['status'][] = ['pending', 'in_progress', 'under_review', 'completed'];
-    const currentIndex = statuses.indexOf(task.status);
-    let newIndex = currentIndex;
+  const handleDragEnd = async (result: DropResult) => {
+    const { destination, source, draggableId } = result;
+    if (!destination) return;
+    if (destination.droppableId === source.droppableId && destination.index === source.index) return;
     
-    if (direction === 'left' && currentIndex > 0) {
-      newIndex--;
-    } else if (direction === 'right' && currentIndex < statuses.length - 1) {
-      newIndex++;
-    }
-
-    if (newIndex !== currentIndex) {
-      await onUpdateTask(task.id, { status: statuses[newIndex] });
-    }
+    const newStatus = destination.droppableId as Task['status'];
+    await onUpdateTask(draggableId, { status: newStatus });
   };
 
   // Filter & Search logic
@@ -153,64 +152,71 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
       <div className="kanban-column" key={colStatus}>
         <div className="column-header">
           <div className="column-title-wrapper">
-            <span className="column-dot" style={{ backgroundColor: dotColor } as React.CSSProperties} />
+            <span className="column-dot" style={{ backgroundColor: dotColor }} />
             <span className="column-name">{name}</span>
           </div>
           <span className="task-count">{colTasks.length}</span>
         </div>
 
-        <div className="column-tasks">
-          {colTasks.length === 0 ? (
-            <div style={{ padding: '24px 8px', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.8rem' }}>
-              No tasks in this column
+        <Droppable droppableId={colStatus}>
+          {(provided, snapshot) => (
+            <div 
+              className={`column-tasks ${snapshot.isDraggingOver ? 'dragging-over' : ''}`}
+              ref={provided.innerRef} 
+              {...provided.droppableProps}
+              style={{ minHeight: '150px' }}
+            >
+              {colTasks.length === 0 ? (
+                <div style={{ padding: '24px 8px', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.8rem' }}>
+                  No tasks in this column
+                </div>
+              ) : (
+                colTasks.map((task, index) => (
+                  <Draggable key={task.id} draggableId={task.id} index={index}>
+                    {(provided, snapshot) => (
+                      <div 
+                        className="task-card" 
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        onClick={() => handleOpenEdit(task)}
+                        style={{
+                          ...provided.draggableProps.style,
+                          opacity: snapshot.isDragging ? 0.8 : 1,
+                          boxShadow: snapshot.isDragging ? 'var(--shadow-lg)' : 'var(--shadow-md)',
+                        }}
+                      >
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                          <span className="card-category">{task.category}</span>
+                          <div className="card-badges">
+                            <span className={`badge priority-badge ${task.priority}`}>{task.priority}</span>
+                          </div>
+                        </div>
+
+                        <div className="card-title-text">{task.title}</div>
+                        {task.description && <p className="card-desc">{task.description}</p>}
+
+                        <div className="card-meta">
+                          <div className="card-assignee">
+                            <div className="assignee-avatar">{task.assignee.charAt(0)}</div>
+                            <span>{task.assignee}</span>
+                          </div>
+                          {task.due_time && (
+                            <span className="badge time-badge">
+                              {new Date(task.due_time).toLocaleDateString([], { month: 'short', day: 'numeric' })} at{' '}
+                              {new Date(task.due_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </Draggable>
+                ))
+              )}
+              {provided.placeholder}
             </div>
-          ) : (
-            colTasks.map((task) => (
-              <div key={task.id} className="task-card" onClick={() => handleOpenEdit(task)}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                  <span className="card-category">{task.category}</span>
-                  <div className="card-badges">
-                    <span className={`badge priority-badge ${task.priority}`}>{task.priority}</span>
-                  </div>
-                </div>
-
-                <div className="card-title-text">{task.title}</div>
-                {task.description && <p className="card-desc">{task.description}</p>}
-
-                <div className="card-meta">
-                  <div className="card-assignee">
-                    <div className="assignee-avatar">{task.assignee.charAt(0)}</div>
-                    <span>{task.assignee}</span>
-                  </div>
-                  {task.due_time && (
-                    <span className="badge time-badge">
-                      {new Date(task.due_time).toLocaleDateString([], { month: 'short', day: 'numeric' })} at{' '}
-                      {new Date(task.due_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}
-                    </span>
-                  )}
-                </div>
-
-                {/* Move status selectors */}
-                <div className="card-actions" onClick={(e) => e.stopPropagation()}>
-                  {colStatus !== 'pending' && (
-                    <button className="action-icon-btn" onClick={() => moveTask(task, 'left')} title="Move Left">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                        <polyline points="15 18 9 12 15 6" />
-                      </svg>
-                    </button>
-                  )}
-                  {colStatus !== 'completed' && (
-                    <button className="action-icon-btn" onClick={() => moveTask(task, 'right')} title="Move Right">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                        <polyline points="9 18 15 12 9 6" />
-                      </svg>
-                    </button>
-                  )}
-                </div>
-              </div>
-            ))
           )}
-        </div>
+        </Droppable>
       </div>
     );
   };
@@ -286,12 +292,16 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
 
       {/* Kanban Grid */}
       <div className="kanban-wrapper">
-      <div className="kanban-grid">
-        {renderColumn('pending', 'To Do', '#d4af37')}
-        {renderColumn('in_progress', 'In Progress', '#4682b4')}
-        {renderColumn('under_review', 'Under Review', '#ba55d3')}
-        {renderColumn('completed', 'Completed', '#2e8b57')}
-      </div>
+        {isMounted && (
+          <DragDropContext onDragEnd={handleDragEnd}>
+            <div className="kanban-grid">
+              {renderColumn('pending', 'To Do', '#d4af37')}
+              {renderColumn('in_progress', 'In Progress', '#4682b4')}
+              {renderColumn('under_review', 'Under Review', '#ba55d3')}
+              {renderColumn('completed', 'Completed', '#2e8b57')}
+            </div>
+          </DragDropContext>
+        )}
       </div>
 
       {/* Modal Dialog Form */}
